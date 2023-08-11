@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
-import { Layout, Menu, Button, theme } from "antd";
+import { Layout, Menu, Button } from "antd";
 import { NavLink, Navigate, Route, Routes } from "react-router-dom";
 import { Ingresar } from "./Ingresar";
 import { CrearTicket } from "./CrearTicket";
 import { Escritorio } from "./Escritorio";
 import { Cola } from "./Cola";
+import { UiContext } from "../context/UiContext";
 const { Header, Sider, Content } = Layout;
 
 export const RouterPage = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+
+  const { ocultarMenu } = useContext(UiContext);
 
   const items = [
     {
@@ -36,7 +36,12 @@ export const RouterPage = () => {
 
   return (
     <Layout style={{ height: "100vh" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        hidden={ocultarMenu}
+      >
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
@@ -68,8 +73,8 @@ export const RouterPage = () => {
           style={{
             padding: 24,
             minHeight: 280,
-            background: "black",
-            color: "white",
+            background: "white",
+            color: "black",
           }}
         >
           <Routes>
