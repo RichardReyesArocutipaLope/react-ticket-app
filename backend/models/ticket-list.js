@@ -33,4 +33,4 @@ class TicketList {
   }
 }
 
-module.export = TicketList;
+module.exports = TicketList;
